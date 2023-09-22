@@ -53,7 +53,7 @@ if (isset($_POST['checkBoxArray'])) {
         </div>
         <div class="col-xs-4 p-3">
             <input type="submit" name="submit" class="btn btn-success" value="Apply">
-            <a href="add_post.php" class="btn btn-primary">Add New</a>
+            <a href="posts.php?source=add_post" class="btn btn-primary">Add New</a>
         </div>
 
 
@@ -69,7 +69,10 @@ if (isset($_POST['checkBoxArray'])) {
                 <th>Image</th>
                 <th>Tags</th>
                 <th>Comments</th>
-                <th>Dates</th>
+                <th>Date</th>
+                <th>View Post</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -121,9 +124,10 @@ if (isset($_POST['checkBoxArray'])) {
                 echo "<td><img src='../images/{$post_image}' width='100' alt = 'image' /></td>";
                 echo "<td>{$post_tags}</td>";
                 echo "<td>{$post_comment_count}</td>";
-                echo "<td>{$post_date}</td>";
+                echo "<td>{$post_date}</td>";                
+                echo "<td><a href='../post.php?p_id={$post_id}'>View </a></td>";
                 echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
-                echo "<td><a href='posts.php?delete={$post_id}'>Delete Post</a></td>";
+                echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
                 echo "</tr>";
             }
 

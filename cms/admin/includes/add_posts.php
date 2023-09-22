@@ -31,7 +31,14 @@ if (isset($_POST['create_post'])) {
     $create_post_query = mysqli_query($connection, $query);
 
     confirm($create_post_query);
-    header("Location: posts.php");
+
+    $the_post_id = mysqli_insert_id($connection);
+
+    echo "<p class='bg-success'> 
+    Post Updated 
+    <a href='../post.php?p_id={$the_post_id}'>View Post</a> 
+    or 
+    <a href='posts.php'>Back to Posts</a></p>";
 }
 
 ?>
@@ -43,7 +50,7 @@ if (isset($_POST['create_post'])) {
         <input type="text" class="form-control" name="title">
     </div>
     <div class="form-group">
-        <select  name="post_category" id ="">
+        <select class="form-control" name="post_category" id ="">
 
 
         <?php 
@@ -72,12 +79,19 @@ if (isset($_POST['create_post'])) {
         <input type="text" class="form-control" name="author">
     </div>
     <div class="form-group">
-        <label for="title">Post Status</label>
-        <input type="text" class="form-control" name="post_status">
+
+        <select  class="form-control" name="post_status" id="">
+            <option value="draft">Select post status</option>
+            <option value="Publish">Publish</option>
+            <option value="draft">Draft</option>
+        </select>
+
+
+        
     </div>
     <div class="form-group">
         <label for="title">Post Image</label>
-        <input type="file" name="image">
+        <input class="form-control" type="file" name="image">
     </div>
     <div class="form-group">
         <label for="title">Post Tags</label>
@@ -85,7 +99,7 @@ if (isset($_POST['create_post'])) {
     </div>
     <div class="form-group">
         <label for="post_content">Post Content</label>
-        <textarea type="text" class="form-control" id="sumernote" cols="30" rows="10" name="post_content"></textarea>
+        <textarea type="text" class="form-control" id="summernote" cols="30" rows="10" name="post_content"></textarea>
     </div>
     <div class="form-group">
         <label for="title">Post Status</label>

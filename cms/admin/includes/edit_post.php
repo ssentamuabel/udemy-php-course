@@ -35,7 +35,7 @@ if (isset($_GET['p_id'])) {
         <input type="text" value="<?php echo $post_title ?>" class="form-control" name="title">
     </div>
     <div class="form-group">
-        <select  name="post_category_id" id ="">
+        <select  class="form-control" name="post_category_id" id ="">
 
 
         <?php 
@@ -65,7 +65,7 @@ if (isset($_GET['p_id'])) {
     </div>
 
     <div class="form-group">
-        <select  name="post_status" id ="">
+        <select class="form-control" name="post_status" id ="">
 
             <option value="<?php echo $post_status ?>" id =""><?php echo $post_status ?></option>
 
@@ -159,7 +159,11 @@ if (isset($_POST['update_post']))
 
 
 
-    echo "<p class='bg-success'> Post Updated <a href='../post.php?p_id={$the_post_id}'>View Post</a></p>";
+    echo "<p class='bg-success'> 
+                Post Updated 
+                <a href='../post.php?p_id={$the_post_id}'>View Post</a> 
+                or 
+                <a href='posts.php'>Back to Posts</a></p>";
 
     
 
