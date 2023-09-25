@@ -39,6 +39,25 @@ var div_box = "<div id='load-section'><div id='loading'></div></div>";
 
 
 
+function loadUsersOnline()
+{
+    $.get("functions.php?onlineusers=result", function(data)
+    {
+        $(".usersonline").text(data);
+    });
+}
+
+
+
+
+setInterval(function()
+{
+    loadUsersOnline();
+}, 500);
+
+
+
+
 
 
 

@@ -1,11 +1,13 @@
 <?php include "includes/admin_header.php" ?>
+<?php session_start() ?>
+
+
+
 
 <div id="wrapper">
 
+
     <?php include "includes/admin_navigation.php" ?>
-
-
-
 
 
     <div id="page-wrapper">
@@ -19,6 +21,7 @@
                         Welcome To Admin
                         <small><?php echo $_SESSION['username']; ?></small>
                     </h1>
+                  
                     <ol class="breadcrumb">
                         <li>
                             <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
@@ -174,7 +177,7 @@
         <!-- /.container-fluid -->
 
 
-        <?php 
+        <?php
         $query = "SELECT * FROM posts where post_status = 'draft'";
         $draft_post_count_query = mysqli_query($connection, $query);
         confirm($draft_post_count_query);
@@ -191,8 +194,8 @@
         $unapproved_comments_count = mysqli_num_rows($unapproved_comments_query);
 
 
-        
-        
+
+
         ?>
 
         <div class="row">
@@ -206,19 +209,18 @@
                     var data = google.visualization.arrayToDataTable([
                         ['Data', 'Count', ],
 
-                        <?php 
-                        
+                        <?php
+
                         $element_text = ['Active Posts', 'Draft posts', 'Categories', 'Users', 'Subscribers', 'Comments', 'Unapproved Comments'];
-                        $element_count = [$post_count,$draft_post_count, $category_count, $user_count, $subscriber_user_count,  $comment_count,  $unapproved_comments_count];
+                        $element_count = [$post_count, $draft_post_count, $category_count, $user_count, $subscriber_user_count,  $comment_count,  $unapproved_comments_count];
 
 
-                        for ($i = 0; $i < 7; $i++)
-                        {
+                        for ($i = 0; $i < 7; $i++) {
                             echo "['{$element_text[$i]}'" . "," . " {$element_count[$i]}], ";
                         }
-                        
+
                         ?>
-                      
+
                     ]);
 
                     var options = {
@@ -236,7 +238,7 @@
             <div id="columnchart_material" style="width: 'auto'; height: 500px;"></div>
 
         </div>
-        
+
 
     </div>
     <!-- /#page-wrapper -->
