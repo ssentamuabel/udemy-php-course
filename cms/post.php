@@ -117,13 +117,7 @@
                         die("QUERY FAILED " . mysqli_error($connection));
                     }
 
-                    $query = "UPDATE posts SET post_comment_count = post_comment_count + 1 WHERE post_id = {$the_post_id}";
-
-                    $update_count = mysqli_query($connection, $query);
-
-                    if (!$update_count) {
-                        die("QUERY FAILED " . mysqli_error($connection));
-                    }
+                   
                 } else {
 
 
