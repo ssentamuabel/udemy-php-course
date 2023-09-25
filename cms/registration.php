@@ -18,20 +18,57 @@
         $password = $_POST['password'];
 
 
-        $username = mysqli_real_escape_string($connection, $username);
-        $email = mysqli_real_escape_string($connection, $email);
-        $password = mysqli_real_escape_string($connection, $password);
 
-
-
-        $query = "SELECT randSalt FROM users";
-
-        $rand_query = mysqli_query($connection, $query);
-        
-        if (!$rand_query)
+        if (!empty($username) && !empty($email) && !empty($password))
         {
-            die("Query Failed: ". mysqli_error($connection));
+
+            $username = mysqli_real_escape_string($connection, $username);
+            $email = mysqli_real_escape_string($connection, $email);
+            $password = mysqli_real_escape_string($connection, $password);
+
+
+
+            // $query = "SELECT randSalt FROM users";
+
+            // $rand_query = mysqli_query($connection, $query);
+            
+            // if (!$rand_query)
+            // {
+            //     die("Query Failed: ". mysqli_error($connection));
+            // }
+
+            // $row = mysqli_fetch_array($rand_query);
+            
+            // $salt =  $row['randSalt'];
+
+            //$message = $password;
+            $password = password_hash($password, PASSWORD_DEFAULT);
+           
+
+
+            $query = "INSERT INTO users (username, user_email, user_password, user_role) ";
+            $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
+
+            $register_user_query = mysqli_query($connection, $query);
+
+            if (!$register_user_query)
+            {
+                die("Query Failed  " . mysqli_error($connection) . ' '. mysqli_errno($connection));
+            }
+
+             $message = "Your registration is received";
         }
+        else
+        {
+            $message = "You can not submit an empty form";
+        }
+        
+
+
+    }
+    else 
+    {
+        $message = "";
     }
     
     
@@ -47,6 +84,7 @@
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Register</h1>
+                <h6 class="text-center"><?php echo $message  ?></h6>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>

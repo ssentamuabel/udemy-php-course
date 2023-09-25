@@ -88,7 +88,7 @@ if (isset($_POST['update_user']))
    
   
    
-
+    $user_password = password_hash($user_password, PASSWORD_DEFAULT);
 
 
    // Update query
