@@ -7,7 +7,7 @@ if (isset($_GET['u_id'])) {
 
     $the_user_id = $_GET['u_id'];
 
-    echo $the_user_id;
+  
 
     $query = "SELECT * FROM users WHERE user_id = {$the_user_id}";
     $post_query = mysqli_query($connection, $query);
@@ -63,7 +63,7 @@ if (isset($_GET['u_id'])) {
     </div>
     <div class="form-group">
         <label for="user_password">Password</label>
-        <input type="password" value = "<?php echo $user_password; ?>" class="form-control" name="user_password">
+        <input     autocapitalize="off" type="password" value = "<?php echo $user_password; ?>" class="form-control" name="user_password">
     </div>
     <div class="form-group">
        
@@ -84,24 +84,46 @@ if (isset($_POST['update_user']))
     $username = $_POST['username'];    
     $user_role = $_POST['user_role'];
     $user_email = $_POST['user_email'];
-    $user_password = $_POST['user_password'];
    
-  
-   
-    $user_password = password_hash($user_password, PASSWORD_DEFAULT);
+    $new_user_password = $_POST['user_password'];
 
 
-   // Update query
-    $query = "UPDATE users SET ";
-    $query .= "user_firstname = '{$user_firstname}', ";
-    $query .= "user_lastname = '{$user_lastname}', ";
-    $query .= "username = '{$username}', ";
-    $query .= "user_role = '{$user_role}', ";
-    $query .= "user_email = '{$user_email}', ";
-    $query .= "user_password = '{$user_password}' ";
+    if ($user_password === $new_user_password)
+    {
+        // Update query
+        $query = "UPDATE users SET ";
+        $query .= "user_firstname = '{$user_firstname}', ";
+        $query .= "user_lastname = '{$user_lastname}', ";
+        $query .= "username = '{$username}', ";
+        $query .= "user_role = '{$user_role}', ";
+        $query .= "user_email = '{$user_email}' ";
+   
+
+    
+
+    }
+    else
+    {
+
+        $user_password = password_hash($user_password, PASSWORD_DEFAULT);
+            // Update query
+        $query = "UPDATE users SET ";
+        $query .= "user_firstname = '{$user_firstname}', ";
+        $query .= "user_lastname = '{$user_lastname}', ";
+        $query .= "username = '{$username}', ";
+        $query .= "user_role = '{$user_role}', ";
+        $query .= "user_email = '{$user_email}', ";
+        $query .= "user_password = '{$user_password}' ";
+    
+    
+
+    }
   
+   
+   
+
+
     $query .= "WHERE  user_id  =  {$the_user_id}";
-
 
     $update_query = mysqli_query($connection, $query);
 
