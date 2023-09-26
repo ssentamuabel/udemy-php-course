@@ -59,10 +59,35 @@ if (isset($_GET['p_id'])) {
             
         </select>
     </div>
+
+
     <div class="form-group">
+        <label for="title">Author</label>
+        <select class="form-control" name="author" id="">
+            <option value="<?php  echo$post_author; ?>"><?php  echo$post_author; ?></option>
+            <?php
+
+            $query = "SELECT * FROM users";
+
+            $user_query = mysqli_query($connection, $query);
+
+            confirm($user_query);
+
+
+            while ($row = mysqli_fetch_assoc($user_query)) {
+                $user_id = $row['user_id'];
+                $username = $row['username'];
+
+                echo "<option value='{$username}' id=''>{$username} </option>";
+            }
+
+            ?>
+        </select>
+    </div>
+    <!-- <div class="form-group">
         <label for="title">Post Author</label>
         <input type="text" value="<?php  echo $post_author ?>" class="form-control" name="author">
-    </div>
+    </div> -->
 
     <div class="form-group">
         <select class="form-control" name="post_status" id ="">

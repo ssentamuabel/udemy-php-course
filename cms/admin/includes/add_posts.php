@@ -6,7 +6,7 @@ if (isset($_POST['create_post'])) {
 
     $post_title = $_POST['title'];
     $post_author = $_POST['author'];
-    $post_category = $_POST['post_category'];    
+    $post_category = $_POST['post_category'];
     $post_status = $_POST['post_status'];
 
     $post_image = $_FILES['image']['name'];
@@ -50,44 +50,79 @@ if (isset($_POST['create_post'])) {
         <input type="text" class="form-control" name="title">
     </div>
     <div class="form-group">
-        <select class="form-control" name="post_category" id ="">
+        <label for="title">Category</label>
+        <select class="form-control" name="post_category" id="">
 
 
-        <?php 
-        
-        $query = "SELECT * FROM categories";
+            <?php
 
-        $category_query = mysqli_query($connection, $query);
+            $query = "SELECT * FROM categories";
 
-        confirm($category_query);
+            $category_query = mysqli_query($connection, $query);
 
-        
-        while ($row = mysqli_fetch_assoc($category_query))
-        {
-            $cat_id = $row['cat_id'];
-            $cat_title = $row['cat_title'];
+            confirm($category_query);
 
-            echo "<option value='{$cat_id}' id=''>{$cat_title} </option>";
-        }
-        
-        ?>
-            
+
+            while ($row = mysqli_fetch_assoc($category_query)) {
+                $cat_id = $row['cat_id'];
+                $cat_title = $row['cat_title'];
+
+                echo "<option value='{$cat_id}' id=''>{$cat_title} </option>";
+            }
+
+            ?>
+
         </select>
     </div>
+
+    <div class="form-group">
+        <label for="title">Author</label>
+        <select class="form-control" name="author" id="">
+            <option value="<?php  echo $_SESSION['username']?>">Select Author</option>
+            <?php
+
+            $query = "SELECT * FROM users";
+
+            $user_query = mysqli_query($connection, $query);
+
+            confirm($user_query);
+
+
+            while ($row = mysqli_fetch_assoc($user_query)) {
+                $user_id = $row['user_id'];
+                $username = $row['username'];
+
+                echo "<option value='{$username}' id=''>{$username} </option>";
+            }
+
+            ?>
+        </select>
+    </div>
+
+
+
+
+
+    <!-- 
     <div class="form-group">
         <label for="title">Post Author</label>
         <input type="text" class="form-control" name="author">
-    </div>
-    <div class="form-group">
+    </div> -->
 
-        <select  class="form-control" name="post_status" id="">
+
+
+
+
+    <div class="form-group">
+    <label for="title">Status</label>
+        <select class="form-control" name="post_status" id="">
             <option value="draft">Select post status</option>
             <option value="Publish">Publish</option>
             <option value="draft">Draft</option>
         </select>
 
 
-        
+
     </div>
     <div class="form-group">
         <label for="title">Post Image</label>

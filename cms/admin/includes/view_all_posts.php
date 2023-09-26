@@ -138,7 +138,7 @@ if (isset($_POST['checkBoxArray'])) {
 
                 $comment_count = mysqli_num_rows($comment_count_query);
 
-                echo "<td>{$comment_count}</td>";
+                echo "<td><a href='view_post_comments.php?p_id={$post_id}'>{$comment_count}</a></td>";
 
 
 
