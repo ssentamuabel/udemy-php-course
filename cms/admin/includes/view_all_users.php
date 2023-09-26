@@ -56,13 +56,21 @@
 
 if (isset($_GET['delete']))
 {
-    $the_user_id  = $_GET['delete'];
 
-    $query = "DELETE FROM users WHERE user_id = {$the_user_id}";
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === "admin")
+    {
+        $the_user_id  = $_GET['delete'];
 
-    $delete_query = mysqli_query($connection, $query);
+        $query = "DELETE FROM users WHERE user_id = {$the_user_id}";
 
-    header("Location: users.php");
+        $delete_query = mysqli_query($connection, $query);
+
+        header("Location: users.php");
+    }
+    else
+    {
+        header("Location: ../index.php");
+    }
 
     
 }
@@ -85,14 +93,22 @@ if (isset($_GET['sub']))
 
 if (isset($_GET['admin']))
 {
-    $query= "UPDATE users SET user_role = 'admin' WHERE user_id = {$_GET['admin']}";
 
-    $admin_query = mysqli_query($connection, $query);
-    if (!$admin_query)
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === "admin")
     {
-        die("QUERY FAILED ". mysqli_error($connection));
+        $query= "UPDATE users SET user_role = 'admin' WHERE user_id = {$_GET['admin']}";
+
+        $admin_query = mysqli_query($connection, $query);
+        if (!$admin_query)
+        {
+            die("QUERY FAILED ". mysqli_error($connection));
+        }
+        header("Location: users.php");
     }
-    header("Location: users.php");
+    else
+    {
+        header("Location: ../index.php");
+    }
 }
 
 ?>

@@ -164,13 +164,22 @@ if (isset($_POST['checkBoxArray'])) {
 
 
 if (isset($_GET['delete'])) {
-    $the_post_id  = $_GET['delete'];
 
-    $query = "DELETE FROM posts WHERE post_id = {$the_post_id}";
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == "admin")
+    {
 
-    $delete_query = mysqli_query($connection, $query);
+        $the_post_id  = $_GET['delete'];
 
-    header("Location: posts.php");
+        $query = "DELETE FROM posts WHERE post_id = {$the_post_id}";
+
+        $delete_query = mysqli_query($connection, $query);
+
+        header("Location: posts.php");
+    }
+    else
+    {
+        header("Location: ../index.php");
+    }
 }
 
 ?>
