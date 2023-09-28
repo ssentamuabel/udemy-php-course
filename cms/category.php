@@ -1,126 +1,121 @@
-<?php  include "includes/db.php"?>
-<?php  include "includes/header.php"?>
+<?php include "includes/db.php" ?>
+<?php include "includes/header.php" ?>
 
 
 
-    <!-- Navigation -->
-    <?php include "includes/navigation.php" ?>
+<!-- Navigation -->
+<?php include "includes/navigation.php" ?>
 
-    <!-- Page Content -->
-    <div class="container">
+<!-- Page Content -->
+<div class="container">
 
-        <div class="row">
+    <div class="row">
 
-            <!-- Blog Post Content Column -->
-            <div class="col-lg-8">
+        <!-- Blog Post Content Column -->
+        <div class="col-lg-8">
 
-                <!-- Blog Post -->
+            <!-- Blog Post -->
 
-            <?php 
-           
-                if(isset($_POST['submit']))
-                {
-                    $search =  $_POST['search'];
+            <?php
 
-                    $query = "SELECT * FROM posts WHERE post_tags LIKE  '%$search%' ";
-                    $search_query = mysqli_query($connection, $query);
+            if (isset($_POST['submit'])) {
+                $search =  $_POST['search'];
+
+                $query = "SELECT * FROM posts WHERE post_tags LIKE  '%$search%' ";
+                $search_query = mysqli_query($connection, $query);
 
 
-                    if(!$search_query)
-                    {
-                        die("QUERY FAILED " . mysqli_error($connection));
-                    }
-
-                    $count = mysqli_num_rows($search_query);
-
-                    if ($count == 0)
-                    {
-                        echo "<h2>NO RESULT</h2>";
-                    }
-                    else
-                    {
-                        
-                    }
-
+                if (!$search_query) {
+                    die("QUERY FAILED " . mysqli_error($connection));
                 }
-                
 
-                if (isset($_GET['category']))
-                {
+                $count = mysqli_num_rows($search_query);
 
-                    $the_cat_id = $_GET['category'];
-               
+                if ($count == 0) {
+                    echo "<h2>NO RESULT</h2>";
+                } else {
+                }
+            }
 
-            
+
+            if (isset($_GET['category'])) {
+
+                $the_cat_id = $_GET['category'];
+
+
+
                 $query = "SELECT * FROM posts WHERE post_category_id={$the_cat_id}";
 
                 $select_posts = mysqli_query($connection, $query);
-
-
-                if (!$select_posts)
-                {
+                if (!$select_posts) {
                     die("FAILED " . mysqli_error($connection));
                 }
 
 
-                
+                $post_count = mysqli_num_rows($select_posts);
 
-                while($row = mysqli_fetch_assoc($select_posts))
-                {
-
-                    $post_id = $row['post_id'];
-                    $post_title = $row['post_title'];
-                    $post_author = $row['post_author'];
-                    $post_date = $row['post_date'];
-                    $post_image = $row['post_image'];
-                    $post_content = $row['post_content'];
+                if ($post_count > 0) {
 
 
-                ?>
+                    while ($row = mysqli_fetch_assoc($select_posts)) {
+
+                        $post_id = $row['post_id'];
+                        $post_title = $row['post_title'];
+                        $post_author = $row['post_author'];
+                        $post_date = $row['post_date'];
+                        $post_image = $row['post_image'];
+                        $post_content = $row['post_content'];
+
+
+            ?>
 
 
 
-                <!-- Title -->
-                <h1><a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title;  ?></a></h1>
+                        <!-- Title -->
+                        <h1><a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title;  ?></a></h1>
 
-                <!-- Author -->
-                <p class="lead">
-                    by <a href="#"><?php echo $post_author; ?></a>
-                </p>
+                        <!-- Author -->
+                        <p class="lead">
+                            by <a href="#"><?php echo $post_author; ?></a>
+                        </p>
 
-                <hr>
+                        <hr>
 
-                <!-- Date/Time -->
-                <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
+                        <!-- Date/Time -->
+                        <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
 
-                <hr>
+                        <hr>
 
-                <!-- Preview Image -->
-                <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                        <!-- Preview Image -->
+                        <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
 
-                <hr>
+                        <hr>
 
-                <!-- Post Content -->
-                <p class="lead"><?php echo $post_content ?></p>
-                
-                <hr>
+                        <!-- Post Content -->
+                        <p class="lead"><?php echo $post_content ?></p>
 
-                <?php   } }  ?>
+                        <hr>
 
-                <!-- Blog Comments -->
+            <?php   }
+                } else {
+                    echo "<h2 class='text-center'>The Category has no posts</h2>";
+                }
+            }  ?>
 
-                
+            <!-- Blog Comments -->
 
-               
 
-            </div>
 
-            <!-- Blog Sidebar Widgets Column -->
-           <?php include "includes/sidebar.php"  ?>
+
 
         </div>
-        <!-- /.row -->
 
-        <hr>
+        <!-- Blog Sidebar Widgets Column -->
+        <?php include "includes/sidebar.php"  ?>
 
-        <?php  include "includes/footer.php" ?>  
+    </div>
+    <!-- /.row -->
+
+    <hr>
+
+    <?php include "includes/footer.php" ?>
