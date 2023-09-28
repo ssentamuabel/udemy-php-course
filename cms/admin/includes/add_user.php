@@ -4,13 +4,13 @@
 
 if (isset($_POST['create_user'])) {
 
-    $user_firstname = $_POST['user_firstname'];
-    $user_lastname = $_POST['user_lastname'];
-    $username = $_POST['username'];    
-    $user_email = $_POST['user_email'];
+    $user_firstname = escape($_POST['user_firstname']);
+    $user_lastname = escape($_POST['user_lastname']);
+    $username = escape($_POST['username']);    
+    $user_email = escape($_POST['user_email']);
 
-    $user_role = $_POST['user_role'];
-    $user_password = $_POST['user_password'];
+    $user_role = escape($_POST['user_role']);
+    $user_password = escape($_POST['user_password']);
     
     // $post_comment_count = 4;
 

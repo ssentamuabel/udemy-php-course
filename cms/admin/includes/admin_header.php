@@ -1,6 +1,6 @@
+<?php  ob_start(); ?>
 <?php include "../includes/db.php" ?>
 <?php include "functions.php" ?>
-<?php  ob_start(); ?>
 <?php  session_start();  ?>
 
 
@@ -48,6 +48,7 @@ if (!isset($_SESSION['user_role']))
 
     <link rel="stylesheet" href="css/summernote.css">
     <!-- <link href="css/styles.css" rel="stylesheet"> -->
+    <script src="js/jquery.js"></script>
 
 </head>
 

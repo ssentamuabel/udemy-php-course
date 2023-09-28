@@ -1,5 +1,6 @@
 <?php include "includes/db.php" ?>
 <?php include "includes/header.php" ?>
+<?php session_start(); ?>
 
 
 
@@ -38,87 +39,75 @@
             }
 
 
-            if (isset($_GET['page']))
-            {
-                $page = $_GET['page'];
+           
 
 
-            }else{
-                $page = "";
+            if (isset($_SESSION['username'])) {
+
+                $query = "SELECT * FROM posts";
+                $post_query = mysqli_query($connection, $query);
+
+
+
+                $post_count = mysqli_num_rows($post_query);
+            } else {
+                $query = "SELECT * FROM posts WHERE post_status = 'Publish'";
+                $post_query = mysqli_query($connection, $query);
+
+
+
+                $post_count = mysqli_num_rows($post_query);
             }
 
+            if ($post_count > 0) {
 
-            if ($page == "" || $page == 1 )
-            {
-                $page_1 = 0;
-            }
-            else
-            {
-                $page_1 = ($page * 3) - 3;
-            }
+                while ($row = mysqli_fetch_assoc($post_query)) {
 
-
-            $count = "SELECT * FROM posts";
-            $count_query = mysqli_query($connection, $count);
-
-            $post_count = mysqli_num_rows($count_query);
-
-            $post_count = ceil($post_count / 3);
-
-
-            $query = "SELECT * FROM posts  LIMIT $page_1, 3";
-
-            $select_all_posts_query = mysqli_query($connection, $query);
-
-            while ($row = mysqli_fetch_assoc($select_all_posts_query)) {
-
-                $post_id = $row['post_id'];
-                $post_title = $row['post_title'];
-                $post_author = $row['post_author'];
-                $post_date = $row['post_date'];
-                $post_image = $row['post_image'];
-                $post_content = $row['post_content'];
-                $post_status = $row['post_status'];
-
-
-                if ($post_status == 'Publish') {
-
+                    $post_id = $row['post_id'];
+                    $post_title = $row['post_title'];
+                    $post_author = $row['post_author'];
+                    $post_date = $row['post_date'];
+                    $post_image = $row['post_image'];
+                    $post_content = $row['post_content'];
+                    $post_status = $row['post_status'];
 
             ?>
 
+                        <!-- Title -->
+                        <h1><a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title;  ?></a></h1>
+
+                        <!-- Author -->
+                        <p class="lead">
+                            by <a href="#"><?php echo $post_author; ?></a>
+                        </p>
+
+                        <hr>
+
+                        <!-- Date/Time -->
+                        <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
+
+                        <hr>
+
+                        <!-- Preview Image -->
+                        <a href="post.php?p_id=<?php echo $post_id; ?>">
+                            <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                        </a>
 
 
-                    <!-- Title -->
-                    <h1><a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title;  ?></a></h1>
+                        <hr>
 
-                    <!-- Author -->
-                    <p class="lead">
-                        by <a href="#"><?php echo $post_author; ?></a>
-                    </p>
+                        <!-- Post Content -->
+                        <p class="lead"><?php echo $post_content ?></p>
+                        <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>"> Read More<span class="glyphicon glyphicon-chiveron-right"></span></a>
 
-                    <hr>
+                        <hr>
 
-                    <!-- Date/Time -->
-                    <p><span class="glyphicon glyphicon-time"></span> Posted on <?php echo $post_date; ?></p>
-
-                    <hr>
-
-                    <!-- Preview Image -->
-                    <a href="post.php?p_id=<?php echo $post_id; ?>">
-                        <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
-                    </a>
-
-
-                    <hr>
-
-                    <!-- Post Content -->
-                    <p class="lead"><?php echo $post_content ?></p>
-                    <a class="btn btn-primary" href="post.php?p_id=<?php echo $post_id; ?>"> Read More<span class="glyphicon glyphicon-chiveron-right"></span></a>
-
-                    <hr>
-
-            <?php   }
-            }  ?>
+            <?php
+                    
+                }
+            } else {
+                echo "<h2 class='text-center' > NO POSTS TO DISPLAY </h2>";
+            } ?>
 
             <!-- Blog Comments -->
 
@@ -138,13 +127,5 @@
 
 
 
-    <ul class="pager">
-        <?php
-        for ($i = 1; $i <= $post_count; $i++) {
-            echo "<li><a href='index.php?page={$i}'>{$i}</a></li>";
-        }
-        ?>
-
-    </ul>
 
     <?php include "includes/footer.php" ?>

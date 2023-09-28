@@ -1,3 +1,4 @@
+
 <?php
 
 if (isset($_POST['checkBoxArray'])) {
@@ -39,7 +40,7 @@ if (isset($_POST['checkBoxArray'])) {
 
 ?>
 
-
+<?php include "delete_model.php" ?>
 
 <form action="" method="post">
     <table class="table table-bordered table-hover">
@@ -84,6 +85,9 @@ if (isset($_POST['checkBoxArray'])) {
 
             $query = "SELECT * FROM posts ORDER BY post_id DESC";
             $posts_query = mysqli_query($connection, $query);
+
+
+            
 
             while ($row = mysqli_fetch_assoc($posts_query)) {
                 $post_id = $row['post_id'];
@@ -137,6 +141,7 @@ if (isset($_POST['checkBoxArray'])) {
                 }
 
                 $comment_count = mysqli_num_rows($comment_count_query);
+                
 
                 echo "<td><a href='view_post_comments.php?p_id={$post_id}'>{$comment_count}</a></td>";
 
@@ -145,7 +150,8 @@ if (isset($_POST['checkBoxArray'])) {
                 echo "<td>{$post_date}</td>";                
                 echo "<td><a href='../post.php?p_id={$post_id}'>View </a></td>";
                 echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
-                echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
+                echo "<td><a rel ='$post_id' class='delete_link' href='javascript:void(0)'>Delete</a></td>";
+               // echo "<td><a onClick = \" javascript: return confirm('Are you sure you want to delete the field'); \" href='posts.php?delete={$post_id}'>Delete</a></td>";
                 echo "</tr>";
             }
 
@@ -165,7 +171,7 @@ if (isset($_POST['checkBoxArray'])) {
 
 if (isset($_GET['delete'])) {
 
-    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == "admin")
+    if (isset($_SESSION['user_role']) )
     {
 
         $the_post_id  = $_GET['delete'];
@@ -183,3 +189,31 @@ if (isset($_GET['delete'])) {
 }
 
 ?>
+
+
+
+<script>
+    $(document).ready(function()
+    {
+        $(".delete_link").on('click', function(){
+
+            var id = $(this).attr("rel");
+
+            var delete_url = "posts.php?delete=" + id + "";
+
+            alert(delete_url);
+
+            $(".model-delete-link").attr("href", delete_url);
+
+
+            $(".myModal").model('show');
+
+          
+
+            
+        });
+    });
+</script>
+
+
+
