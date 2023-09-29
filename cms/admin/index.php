@@ -21,7 +21,7 @@
                         Welcome To Admin
                         <small><?php echo $_SESSION['username']; ?></small>
                     </h1>
-                  
+
                     <ol class="breadcrumb">
                         <li>
                             <i class="fa fa-dashboard"></i> <a href="index.html">Dashboard</a>
@@ -44,16 +44,8 @@
                                 <div class="col-xs-9 text-right">
                                     <?php
 
-                                    $query = "SELECT * FROM posts";
-
-                                    $post_count_query = mysqli_query($connection, $query);
-
-                                    confirm($post_count_query);
-
-                                    $post_count = mysqli_num_rows($post_count_query);
-
+                                    $post_count = row_count("posts");
                                     echo "<div class='huge'>{$post_count}</div>";
-
                                     ?>
 
                                     <div>Posts</div>
@@ -79,13 +71,7 @@
                                 <div class="col-xs-9 text-right">
                                     <?php
 
-                                    $query = "SELECT * FROM comments";
-
-                                    $comment_count_query = mysqli_query($connection, $query);
-
-                                    confirm($comment_count_query);
-
-                                    $comment_count = mysqli_num_rows($comment_count_query);
+                                    $comment_count = row_count("comments");
 
                                     echo "<div class='huge'>{$comment_count}</div>";
 
@@ -113,13 +99,7 @@
                                 <div class="col-xs-9 text-right">
                                     <?php
 
-                                    $query = "SELECT * FROM users";
-
-                                    $user_count_query = mysqli_query($connection, $query);
-
-                                    confirm($user_count_query);
-
-                                    $user_count = mysqli_num_rows($user_count_query);
+                                    $user_count = row_count("users");
 
                                     echo "<div class='huge'>{$user_count}</div>";
 
@@ -147,13 +127,7 @@
                                 <div class="col-xs-9 text-right">
                                     <?php
 
-                                    $query = "SELECT * FROM categories";
-
-                                    $category_count_query = mysqli_query($connection, $query);
-
-                                    confirm($category_count_query);
-
-                                    $category_count = mysqli_num_rows($category_count_query);
+                                    $category_count = row_count("categories");
 
                                     echo "<div class='huge'>{$category_count}</div>";
 
@@ -178,23 +152,10 @@
 
 
         <?php
-        $query = "SELECT * FROM posts where post_status = 'draft'";
-        $draft_post_count_query = mysqli_query($connection, $query);
-        confirm($draft_post_count_query);
-        $draft_post_count = mysqli_num_rows($draft_post_count_query);
 
-        $query = "SELECT * FROM users where user_role = 'subscriber'";
-        $subscriber_user_count_query = mysqli_query($connection, $query);
-        confirm($subscriber_user_count_query);
-        $subscriber_user_count = mysqli_num_rows($subscriber_user_count_query);
-
-        $query = "SELECT * FROM comments where comment_status = 'Unapproved'";
-        $unapproved_comments_query = mysqli_query($connection, $query);
-        confirm($unapproved_comments_query);
-        $unapproved_comments_count = mysqli_num_rows($unapproved_comments_query);
-
-
-
+        $draft_post_count = table_status("posts", "post_status", "draft");      
+        $subscriber_user_count = table_status("users", "user_role", "subscriber");
+        $unapproved_comments_count = table_status("comments", "comment_status", "Unapproved");
 
         ?>
 

@@ -1,5 +1,27 @@
 <?php
 
+function table_status($table, $status_name, $status)
+{
+    global $connection;
+    $query = "SELECT * FROM $table where $status_name = '$status'";
+    $status_count_query = mysqli_query($connection, $query);
+    confirm($status_count_query);
+    return  mysqli_num_rows($status_count_query);
+}
+
+function row_count($table)
+{
+    global $connection;
+
+    $query = "SELECT * FROM $table";
+
+    $count_query = mysqli_query($connection, $query);
+
+    confirm($count_query);
+
+    return mysqli_num_rows($count_query);
+}
+
 
 function escape($string)
 {
