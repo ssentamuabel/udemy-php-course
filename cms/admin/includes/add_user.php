@@ -15,7 +15,7 @@ if (isset($_POST['create_user'])) {
     // $post_comment_count = 4;
 
 
-    $user_password = password_hash($user_email, PASSWORD_DEFAULT);
+   // $user_password = password_hash($user_email, PASSWORD_DEFAULT);
 
     $query = "INSERT INTO users (username, user_password, user_firstname, 
                 user_lastname,user_email, user_role)";

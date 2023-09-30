@@ -1,5 +1,13 @@
 <?php include "includes/admin_header.php" ?>
-<?php session_start() ?>
+
+<?php 
+
+    if (!is_admin($_SESSION['username']))
+    {
+        header("Location: ../index.php");
+    }
+
+?>
 
 
 

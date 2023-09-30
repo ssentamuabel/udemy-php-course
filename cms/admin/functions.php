@@ -1,5 +1,127 @@
 <?php
 
+
+
+function login_user($username, $password)
+{
+    global $connection;
+
+    $username = trim(mysqli_real_escape_string($connection, $username));
+    $password = trim(mysqli_real_escape_string($connection, $password));
+
+
+    $query = "SELECT * FROM users WHERE username = '{$username}' ";
+
+    $select_user_query = mysqli_query($connection, $query);
+
+    while (!$select_user_query) {
+        die("QUERY FAILED: " . mysqli_error($connection));
+    }
+
+
+    while ($row = mysqli_fetch_assoc($select_user_query)) {
+        $db_user_id =  $row['user_id'];
+        $db_user_firstname =  $row['user_firstname'];
+        $db_user_lastname =  $row['user_lastname'];
+        $db_username =  $row['username'];
+        $db_user_password =  $row['user_password'];
+        $db_user_role =  $row['user_role'];
+
+
+
+
+        if ($username === $db_username && $password === $db_user_password) {
+
+            $_SESSION['firstname'] = $db_user_firstname;
+            $_SESSION['lastname'] = $db_user_lastname;
+            $_SESSION['username'] = $db_username;
+            $_SESSION['user_role'] = $db_user_role;
+
+            header("Location: index.php");
+        } else {
+            header("Location: index.php");
+        }
+    }
+}
+
+function register_user($username, $email, $password)
+{
+    global $connection;
+
+
+
+    $username = mysqli_real_escape_string($connection, $username);
+    $email = mysqli_real_escape_string($connection, $email);
+    $password = mysqli_real_escape_string($connection, $password);
+
+    // $password = password_hash($password, PASSWORD_DEFAULT);
+
+    $query = "INSERT INTO users (username, user_email, user_password, user_role) ";
+    $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
+
+    $register_user_query = mysqli_query($connection, $query);
+
+    confirm($register_user_query);
+}
+
+function emailexists($email)
+{
+    global $connection;
+
+    $query = "SELECT * FROM users WHERE user_email = '$email'";
+
+    $email_check_query = mysqli_query($connection, $query);
+    confirm($email_check_query);
+    $count = mysqli_num_rows($email_check_query);
+
+    if ($count > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+
+
+function userexists($username)
+{
+    global $connection;
+
+    $query = "SELECT * FROM users WHERE username = '$username'";
+    $user_check_query = mysqli_query($connection, $query);
+
+    confirm($user_check_query);
+
+    $count = mysqli_num_rows($user_check_query);
+
+    if ($count > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+function is_admin($username = '')
+{
+    global $connection;
+
+    $query = "SELECT user_role FROM users WHERE username = '$username'";
+    $admin_check_query = mysqli_query($connection, $query);
+
+    confirm($admin_check_query);
+
+    $row = mysqli_fetch_array($admin_check_query);
+
+    if ($row['user_role'] == 'admin') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 function table_status($table, $status_name, $status)
 {
     global $connection;

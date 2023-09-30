@@ -7,6 +7,10 @@
             <th>Last name</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Edit</th>
+            <th>SubScriber</th>
+            <th>Admin</th>
+            <th>Delete</th>
             
             
         </tr>
@@ -41,7 +45,20 @@
             echo "<td><a href='users.php?source=edit_user&u_id={$user_id}'>Edit</a></td>";
             echo "<td><a href='users.php?sub={$user_id}'>Subscriber</a></td>";
             echo "<td><a href='users.php?admin={$user_id}'>Admin</a></td>";
-            echo "<td><a  onClick = \" javascript: return confirm('Are you sure you want to delete the field'); \" href='users.php?delete={$user_id}'>Delete</a></td>";
+            ?>
+
+            <form action="" method="post">
+                <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                <?php 
+                    echo '<td><input class="btn btn-danger" type="submit" name="delete" value="Delete"/></td>';
+                ?>
+            </form>
+            
+
+            <?php 
+            //echo "<td><a  onClick = \" javascript: return confirm('Are you sure you want to delete the field'); \" href='users.php?delete={$user_id}'>Delete</a></td>";
+
+
             echo "</tr>";
         }
 
@@ -54,12 +71,12 @@
 <?php 
 
 
-if (isset($_GET['delete']))
+if (isset($_POST['delete']))
 {
 
     if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === "admin")
     {
-        $the_user_id  = $_GET['delete'];
+        $the_user_id  = $_POST['user_id'];
 
         $query = "DELETE FROM users WHERE user_id = {$the_user_id}";
 

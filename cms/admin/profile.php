@@ -77,25 +77,11 @@ if (isset($_SESSION['username'])) {
         $user_lastname = $_POST['user_lastname'];
         $username = $_POST['username'];
         $user_email = $_POST['user_email'];
-        $user_password = $_POST['user_password'];
+        $new_user_password = $_POST['user_password'];
 
-        if ($user_password === $new_user_password)
-        {
-            // Update query
-            $query = "UPDATE users SET ";
-            $query .= "user_firstname = '{$user_firstname}', ";
-            $query .= "user_lastname = '{$user_lastname}', ";
-            $query .= "username = '{$username}', ";
-            $query .= "user_email = '{$user_email}' ";
        
     
-        
-    
-        }
-        else
-        {
-    
-            $user_password = password_hash($user_password, PASSWORD_DEFAULT);
+         //   $user_password = password_hash($user_password, PASSWORD_DEFAULT);
                 // Update query
             $query = "UPDATE users SET ";
             $query .= "user_firstname = '{$user_firstname}', ";
@@ -106,13 +92,13 @@ if (isset($_SESSION['username'])) {
         
         
     
-        }
+        
       
        
        
     
     
-        $query .= "WHERE  user_id  =  {$the_user_id}";
+        $query .= "WHERE  user_id  = {$user_id}";
     
         $update_query = mysqli_query($connection, $query);
     

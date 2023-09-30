@@ -44,8 +44,15 @@ if (isset($_GET['u_id'])) {
 
             <?php 
             
-            if ($user_role == "admin")
+            if ($user_role === "admin")
+            {
                 echo "<option value='subscriber'>Subscriber</option>";
+
+            }
+            else
+            {
+                echo "<option value='admin'>Admin</option>";
+            }
             
             
             ?>
@@ -88,24 +95,6 @@ if (isset($_POST['update_user']))
     $new_user_password = $_POST['user_password'];
 
 
-    if ($user_password === $new_user_password)
-    {
-        // Update query
-        $query = "UPDATE users SET ";
-        $query .= "user_firstname = '{$user_firstname}', ";
-        $query .= "user_lastname = '{$user_lastname}', ";
-        $query .= "username = '{$username}', ";
-        $query .= "user_role = '{$user_role}', ";
-        $query .= "user_email = '{$user_email}' ";
-   
-
-    
-
-    }
-    else
-    {
-
-        $user_password = password_hash($user_password, PASSWORD_DEFAULT);
             // Update query
         $query = "UPDATE users SET ";
         $query .= "user_firstname = '{$user_firstname}', ";
@@ -117,7 +106,7 @@ if (isset($_POST['update_user']))
     
     
 
-    }
+    
   
    
    
