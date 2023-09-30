@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php">CMS Admin</a>
+                <a class="navbar-brand" href="/udemy-php-course/cms">CMS Admin</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -41,7 +41,7 @@
                         $registration_class = 'active';
                     }
 
-                    echo "<li class='$category_class'><a href='category.php?category={$cat_id}'>{$cat_title}</a></li>";
+                    echo "<li class='$category_class'><a href='category/{$cat_id}'>{$cat_title}</a></li>";
                 }
                 
                 ?>

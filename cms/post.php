@@ -159,7 +159,7 @@
 
             <?php
 
-            $query = "SELECT * FROM  comments WHERE comment_post_id = {$the_post_id} ";
+            $query = "SELECT * FROM  comments WHERE comment_post_id = {$the_post_id}";
             $query .= "AND comment_status = 'Approved' ";
             $query .= "ORDER BY  comment_id  DESC ";
 

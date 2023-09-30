@@ -74,7 +74,7 @@
             ?>
 
                         <!-- Title -->
-                        <h1><a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title;  ?></a></h1>
+                        <h1><a href="post/<?php echo $post_id; ?>"><?php echo $post_title;  ?></a></h1>
 
                         <!-- Author -->
                         <p class="lead">

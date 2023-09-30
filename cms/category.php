@@ -87,7 +87,7 @@
                         <hr>
 
                         <!-- Preview Image -->
-                        <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                        <img class="img-responsive" src="/udemy-php-course/cms/images/<?php echo $post_image; ?>" alt="">
 
                         <hr>
 
