@@ -78,7 +78,7 @@
                     <hr>
 
                     <!-- Preview Image -->
-                    <img class="img-responsive" src="images/<?php echo $post_image; ?>" alt="">
+                    <img class="img-responsive" src="/udemy-php-course/cms/images/<?php echo $post_image; ?>" alt="">
 
                     <hr>
 
@@ -159,7 +159,7 @@
 
             <?php
 
-            $query = "SELECT * FROM  comments WHERE comment_post_id = {$the_post_id}";
+            $query = "SELECT * FROM  comments WHERE comment_post_id = {$the_post_id} ";
             $query .= "AND comment_status = 'Approved' ";
             $query .= "ORDER BY  comment_id  DESC ";
 
